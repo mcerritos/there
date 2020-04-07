@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Cryptid Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ cryptid.name }}</span>
+    <p>Region: {{ cryptid.region }}</p>
+    <p>Description: {{ cryptid.description }}</p>
+    <p>Danger Level: {{ cryptid.danger_level }}</p>
+  </div>
+</div>
+
+{% endblock %}
