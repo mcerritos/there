@@ -13,9 +13,9 @@ class Cryptid(models.Model):
 		return self.name
 
 class Sighting(models.Model):
-	date = models.DateField()
+	date = models.DateField('Date of sighting')
 	location = models.CharField(max_length=100)
 	description = models.TextField(max_length=500)
 
-	cat = models.ForeignKey(Cryptid, on_delete=models.CASCADE)
+	cryptid = models.ForeignKey(Cryptid, on_delete=models.CASCADE)
 

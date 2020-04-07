@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Cryptid
+from .forms import SightingForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -16,4 +17,16 @@ def cryptids_index(request):
 
 def cryptids_detail(request, cryptid_id):
 	cryptid = Cryptid.objects.get(id=cryptid_id)
-	return render(request, 'cryptids/detail.html', {'cryptid': cryptid})
+
+	sighting_form = SightingForm()
+	return render(request, 'cryptids/detail.html', {
+		'cryptid': cryptid, 'sighting_form': sighting_form
+		})
+
+def add_sighting(request, cryptid_id):
+	form = SightingForm(request.POST)
+	if form.is_valid():
+		new_sighting = form.save(commit=False)
+		new_sighting.cryptid_id = cryptid_id
+		new_sighting.save()
+	return redirect('detail', cryptid_id=cryptid_id)
