@@ -40,4 +40,56 @@
 	</div>
 </div>
 
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ cryptid.name }}'s Powers</h3>
+    {% if cryptid.powers.count %}
+      {% for power in cryptid.powers.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+             <p>{{power.name}} : {{power.description}} </p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5> Cryptid With No Powers. What Can It Do</h5>
+    {% endif %}
+  </div>
+  <!-- Available powers will come after this line -->
+  <div class="col s6">
+    <h3>Can It Do This?</h3>
+    {% if powers.count %}
+      {% for power in powers.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              <p>{{power.name}} : {{power.description}} </p>
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_power' cryptid.id power.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>It can do everything. Run.</h5>
+    {% endif %}
+  </div>
+
+</div>
+
+<script>
+  let dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+</script>
+
 {% endblock %}
